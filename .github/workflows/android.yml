@@ -1,0 +1,36 @@
+
+name: Build AFRICA CAR RACING
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [principal]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Télécharger le projet
+        uses: actions/checkout@v4
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Installer Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Extraire et compiler
+        run: |
+          unzip AFRICA_CAR_RACING_ANDROID_PROJECT.zip
+          gradle -p AFRICA_CAR_RACING_ANDROID assembleDebug
+
+      - name: Récupérer le fichier APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AFRICA-CAR-RACING-APK
+          path: AFRICA_CAR_RACING_ANDROID/app/build/outputs/apk/debug/app-debug.apk
