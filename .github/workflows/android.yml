@@ -4,7 +4,7 @@ name: Build AFRICA CAR RACING
 on:
   workflow_dispatch:
   push:
-    branches: [principal]
+    branches: [MAIN]
 
 jobs:
   build:
